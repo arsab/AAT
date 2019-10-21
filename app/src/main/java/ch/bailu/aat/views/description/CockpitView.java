@@ -13,6 +13,8 @@ import ch.bailu.aat.dispatcher.DispatcherInterface;
 import ch.bailu.aat.gpx.InfoID;
 import ch.bailu.aat.preferences.location.SolidProvideAltitude;
 import ch.bailu.aat.util.AppBroadcaster;
+import ch.bailu.aat.util.ToDo;
+import ch.bailu.aat.util.ui.AppLog;
 import ch.bailu.aat.util.ui.AppTheme;
 
 
@@ -62,25 +64,16 @@ public class CockpitView extends ViewGroup {
 
     public void addHeartRate(DispatcherInterface di) {
         NumberView v = add(di, new HeartRateDescription(getContext()), InfoID.HEART_RATE_SENSOR);
-        requestOnClick(v);
+        v.requestOnClickSensorReconect();
     }
 
 
     public void addCadence(DispatcherInterface di) {
         NumberView v = add(di, new CadenceDescription(getContext()), InfoID.CADENCE_SENSOR);
-        requestOnClick(v);
+        v.requestOnClickSensorReconect();
     }
 
 
-    public  View requestOnClick(View v) {
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppBroadcaster.broadcast(getContext(), AppBroadcaster.SENSOR_RECONECT + InfoID.SENSORS);
-            }
-        });
-        return v;
-    }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
